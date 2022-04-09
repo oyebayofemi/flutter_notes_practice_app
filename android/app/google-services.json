@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "612618786905",
+    "project_id": "note-practice",
+    "storage_bucket": "note-practice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612618786905:android:cdc3df88130670893c3948",
+        "android_client_info": {
+          "package_name": "com.example.notes_practice_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612618786905-av2mkivkhfrqmcb32st28ca0p6atc22p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdCISULUImnI6zLW1p9s5SltvUHBRHoW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612618786905-av2mkivkhfrqmcb32st28ca0p6atc22p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
