@@ -15,6 +15,9 @@ class AddNote extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.pink),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         actions: [
           FlatButton(
               onPressed: () async {
@@ -24,11 +27,15 @@ class AddNote extends StatelessWidget {
                 // });
 
                 await databaseService()
-                    .addNote(titleController.text, contentController.text);
-                Navigator.pop(context);
-                //.whenComplete(() => Navigator.pop(context));
+                    .addNote(titleController.text, contentController.text)
+                    .whenComplete(() => Navigator.pop(context));
+                // Navigator.pop(context);
+                // .whenComplete(() => Navigator.pop(context));
               },
-              child: Text('save'))
+              child: Text(
+                'SAVE',
+                style: TextStyle(color: Colors.pink),
+              ))
         ],
       ),
       body: Padding(
@@ -36,7 +43,8 @@ class AddNote extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                decoration: BoxDecoration(border: Border.all()),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.pink)),
                 child: TextField(
                   controller: titleController,
                   decoration: InputDecoration(hintText: 'Title'),
@@ -46,7 +54,8 @@ class AddNote extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                  decoration: BoxDecoration(border: Border.all()),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.pink)),
                   child: TextField(
                     controller: contentController,
                     maxLines: null,

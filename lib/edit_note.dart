@@ -23,6 +23,9 @@ class _EditNoteState extends State<EditNote> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.pink),
+        elevation: 0,
         actions: [
           FlatButton(
               onPressed: () {
@@ -37,7 +40,10 @@ class _EditNoteState extends State<EditNote> {
                 //   'content': contentController.text
                 // }).whenComplete(() => Navigator.pop(context));
               },
-              child: Text('save')),
+              child: Text(
+                'SAVE',
+                style: TextStyle(color: Colors.pink),
+              )),
           FlatButton(
               onPressed: () {
                 widget.docEdit.reference.delete();
@@ -53,7 +59,10 @@ class _EditNoteState extends State<EditNote> {
                 //   'content': contentController.text
                 // }).whenComplete(() => Navigator.pop(context));
               },
-              child: Text('delete'))
+              child: Text(
+                'DELETE',
+                style: TextStyle(color: Colors.pink),
+              ))
         ],
       ),
       body: Padding(
@@ -61,7 +70,8 @@ class _EditNoteState extends State<EditNote> {
         child: Column(
           children: [
             Container(
-                decoration: BoxDecoration(border: Border.all()),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.pink)),
                 child: TextField(
                   controller: titleController,
                   decoration: InputDecoration(hintText: 'Title'),
@@ -71,7 +81,8 @@ class _EditNoteState extends State<EditNote> {
             ),
             Expanded(
               child: Container(
-                  decoration: BoxDecoration(border: Border.all()),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.pink)),
                   child: TextField(
                     controller: contentController,
                     maxLines: null,

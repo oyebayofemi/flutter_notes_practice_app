@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:notes_practice_app/add_note.dart';
-import 'package:notes_practice_app/diaolog.dart';
+
 import 'package:notes_practice_app/edit_note.dart';
 import 'package:notes_practice_app/notes.dart';
+import 'package:notes_practice_app/search.dart';
 import 'database.dart';
 import 'package:provider/provider.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -15,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String? firstHalf, secondHalf;
+
   List colorData = [
     {"color": Color(0xffff6968)},
     {"color": Color(0xff7a54ff)},
@@ -71,6 +76,14 @@ class _HomePageState extends State<HomePage> {
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (BuildContext context, int index) {
                 DocumentSnapshot dsnapshot = snapshot.data!.docs[index];
+                if (dsnapshot['content'].length > 80) {
+                  firstHalf = dsnapshot['content'].substring(0, 80);
+                  secondHalf = dsnapshot['content']
+                      .substring(80, dsnapshot['content'].length);
+                } else {
+                  firstHalf = dsnapshot['content'];
+                  secondHalf = "";
+                }
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -80,10 +93,48 @@ class _HomePageState extends State<HomePage> {
                         ));
                   },
                   child: Card(
-                    color: colorData[index]['color'],
+                    color: Colors
+                        .primaries[Random().nextInt(Colors.primaries.length)],
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Text(dsnapshot['title']),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            dsnapshot['title'],
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: secondHalf!.isEmpty
+                                ? Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      '$firstHalf ',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey[800],
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      '$firstHalf ...',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey[800],
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
@@ -91,11 +142,7 @@ class _HomePageState extends State<HomePage> {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return DialogContainer();
-              });
+          showSearch(context: context, delegate: searchDelegate());
         },
         child: Icon(Icons.search),
       ),
